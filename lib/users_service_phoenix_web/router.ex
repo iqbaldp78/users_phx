@@ -18,6 +18,14 @@ defmodule UsersServicePhoenixWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    resources "/users", UserController
+  end
+
+  scope "/api", UsersServicePhoenixWeb do
+    pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit, :show]
+    get "/users/:id", UserController, :display
   end
 
   # Other scopes may use custom stacks.
